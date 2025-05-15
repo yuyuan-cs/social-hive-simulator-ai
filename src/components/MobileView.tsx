@@ -1,7 +1,9 @@
 
 import React from 'react';
-import { Home, Users, MessageCircle, BarChartBig, Settings, Folder } from "lucide-react";
+import { Home, Users, MessageCircle, BarChartBig, Settings, Folder, BookOpen, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { toast } from "@/components/ui/use-toast";
 
 interface MobileViewProps {
   activeModule: string;
@@ -9,7 +11,7 @@ interface MobileViewProps {
 }
 
 const MobileView = ({ activeModule, setActiveModule }: MobileViewProps) => {
-  // Simplified mobile content for each module
+  // 简化的移动端内容
   const renderMobileContent = () => {
     switch (activeModule) {
       case 'home':
@@ -17,15 +19,67 @@ const MobileView = ({ activeModule, setActiveModule }: MobileViewProps) => {
           <div className="space-y-4">
             <h2 className="text-xl font-bold text-center">社群运营虚拟仿真实验平台</h2>
             <p className="text-sm text-center text-muted-foreground">通过实践学习现代社群运营的全生命周期</p>
+            
             <div className="bg-guizhou-green/10 p-4 rounded-lg">
               <p className="text-sm">欢迎来到社群运营虚拟仿真实验平台！在这里，您将系统地学习社群运营的全生命周期。</p>
             </div>
-            <Button 
-              className="w-full bg-guizhou-teal hover:bg-guizhou-teal/90" 
-              onClick={() => setActiveModule('establishment')}
-            >
-              开始实验
-            </Button>
+            
+            <div className="grid grid-cols-2 gap-3 my-4">
+              <Card>
+                <CardContent className="p-3 flex flex-col items-center text-center">
+                  <div className="bg-guizhou-green/50 p-2 rounded-full mb-2">
+                    <Users className="text-guizhou-teal h-4 w-4" />
+                  </div>
+                  <p className="text-xs font-medium">技能学习</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-3 flex flex-col items-center text-center">
+                  <div className="bg-guizhou-blue/50 p-2 rounded-full mb-2">
+                    <MessageCircle className="text-guizhou-teal h-4 w-4" />
+                  </div>
+                  <p className="text-xs font-medium">实训案例</p>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div className="space-y-3">
+              <Button 
+                className="w-full bg-guizhou-teal hover:bg-guizhou-teal/90" 
+                onClick={() => setActiveModule('establishment')}
+              >
+                开始实验
+              </Button>
+              
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  className="flex-1 text-xs h-8"
+                  onClick={() => {
+                    toast({
+                      title: "实验说明",
+                      description: "实验说明功能在移动端开发中",
+                    });
+                  }}
+                >
+                  <BookOpen className="h-3 w-3 mr-1" />
+                  实验说明
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="flex-1 text-xs h-8"
+                  onClick={() => {
+                    toast({
+                      title: "实验报告",
+                      description: "实验报告功能在移动端开发中",
+                    });
+                  }}
+                >
+                  <FileText className="h-3 w-3 mr-1" />
+                  查看报告
+                </Button>
+              </div>
+            </div>
           </div>
         );
       case 'establishment':
@@ -36,6 +90,28 @@ const MobileView = ({ activeModule, setActiveModule }: MobileViewProps) => {
             <div className="bg-guizhou-green/10 p-4 rounded-lg">
               <p className="text-sm">社群建立是社群运营的第一步，包括定位诊断、规则设计等步骤。</p>
             </div>
+            
+            <Card className="border-guizhou-teal/30">
+              <CardContent className="p-4 space-y-3">
+                <h3 className="font-medium text-sm">当前任务</h3>
+                <ol className="list-decimal list-inside text-xs space-y-1">
+                  <li>确定社群定位</li>
+                  <li>设计社群规则</li>
+                  <li>创建引导性问题</li>
+                </ol>
+                <Button 
+                  className="w-full text-xs h-8 bg-guizhou-teal hover:bg-guizhou-teal/90"
+                  onClick={() => {
+                    toast({
+                      title: "任务进行中",
+                      description: "社群建立任务正在进行中",
+                    });
+                  }}
+                >
+                  继续任务
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         );
       case 'operation':
@@ -43,6 +119,27 @@ const MobileView = ({ activeModule, setActiveModule }: MobileViewProps) => {
           <div className="space-y-4">
             <h2 className="text-xl font-bold">社群经营</h2>
             <p className="text-sm text-muted-foreground">了解如何维护和发展社群</p>
+            
+            <div className="grid grid-cols-1 gap-3">
+              <Card>
+                <CardContent className="p-3">
+                  <h3 className="text-sm font-medium">引流拉新</h3>
+                  <p className="text-xs text-muted-foreground">学习多种社群引流方式</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-3">
+                  <h3 className="text-sm font-medium">促进活跃与留存</h3>
+                  <p className="text-xs text-muted-foreground">掌握用户分层运营方法</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-3">
+                  <h3 className="text-sm font-medium">日常运营</h3>
+                  <p className="text-xs text-muted-foreground">制定内容日历，管理社群互动</p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         );
       case 'monetization':
@@ -50,6 +147,21 @@ const MobileView = ({ activeModule, setActiveModule }: MobileViewProps) => {
           <div className="space-y-4">
             <h2 className="text-xl font-bold">社群变现</h2>
             <p className="text-sm text-muted-foreground">探索社群商业价值实现</p>
+            
+            <div className="grid grid-cols-1 gap-3">
+              <Card>
+                <CardContent className="p-3">
+                  <h3 className="text-sm font-medium">变现模式测试</h3>
+                  <p className="text-xs text-muted-foreground">测试不同变现模式的效果</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-3">
+                  <h3 className="text-sm font-medium">定价策略</h3>
+                  <p className="text-xs text-muted-foreground">为产品或服务制定合理价格</p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         );
       case 'management':
@@ -57,6 +169,21 @@ const MobileView = ({ activeModule, setActiveModule }: MobileViewProps) => {
           <div className="space-y-4">
             <h2 className="text-xl font-bold">社群管理</h2>
             <p className="text-sm text-muted-foreground">学习社群规范化管理方法</p>
+            
+            <div className="grid grid-cols-1 gap-3">
+              <Card>
+                <CardContent className="p-3">
+                  <h3 className="text-sm font-medium">数据驱动决策</h3>
+                  <p className="text-xs text-muted-foreground">通过核心指标分析社群状况</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-3">
+                  <h3 className="text-sm font-medium">风险管理</h3>
+                  <p className="text-xs text-muted-foreground">学习舆情危机处理和合规风险防范</p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         );
       case 'expansion':
@@ -64,6 +191,21 @@ const MobileView = ({ activeModule, setActiveModule }: MobileViewProps) => {
           <div className="space-y-4">
             <h2 className="text-xl font-bold">社群拓展</h2>
             <p className="text-sm text-muted-foreground">了解社群扩展与持续发展</p>
+            
+            <div className="grid grid-cols-1 gap-3">
+              <Card>
+                <CardContent className="p-3">
+                  <h3 className="text-sm font-medium">线下活动策划</h3>
+                  <p className="text-xs text-muted-foreground">学习如何策划线下活动</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-3">
+                  <h3 className="text-sm font-medium">模式复制与迭代</h3>
+                  <p className="text-xs text-muted-foreground">将成功模式复制到新领域</p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         );
       default:

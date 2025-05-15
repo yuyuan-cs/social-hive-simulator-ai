@@ -8,8 +8,10 @@ import Operation from './modules/Operation';
 import Monetization from './modules/Monetization';
 import Management from './modules/Management';
 import Expansion from './modules/Expansion';
-import { Phone } from 'lucide-react';
+import { Phone, BookOpen, FileText } from 'lucide-react';
 import MobileView from './MobileView';
+import ExperimentGuide from './ExperimentGuide';
+import ExperimentReport from './ExperimentReport';
 import {
   Drawer,
   DrawerClose,
@@ -23,6 +25,8 @@ import {
 
 const Dashboard = () => {
   const [activeModule, setActiveModule] = useState<string>('home');
+  const [showGuide, setShowGuide] = useState<boolean>(false);
+  const [showReport, setShowReport] = useState<boolean>(false);
 
   const renderActiveModule = () => {
     switch (activeModule) {
@@ -52,10 +56,22 @@ const Dashboard = () => {
             <h1 className="text-xl font-bold text-guizhou-teal">社群运营虚拟仿真实验</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => setShowGuide(true)}
+              className="flex items-center gap-1"
+            >
+              <BookOpen className="h-4 w-4" />
               实验说明
             </Button>
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => setShowReport(true)}
+              className="flex items-center gap-1"
+            >
+              <FileText className="h-4 w-4" />
               查看报告
             </Button>
             <Drawer>
@@ -113,6 +129,18 @@ const Dashboard = () => {
           © 2025 社群运营虚拟仿真实验平台
         </div>
       </footer>
+
+      {/* Modals/Drawers */}
+      <ExperimentGuide 
+        open={showGuide} 
+        onOpenChange={setShowGuide}
+      />
+      
+      <ExperimentReport 
+        open={showReport} 
+        onOpenChange={setShowReport}
+        activeModule={activeModule}
+      />
     </div>
   );
 };
