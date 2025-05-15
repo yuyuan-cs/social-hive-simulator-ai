@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import AiAssistantMessage from '../AiAssistantMessage';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { X } from 'lucide-react'; // Added the X icon import
 
 const Establishment = () => {
   const [step, setStep] = useState<number>(1);
@@ -96,7 +97,7 @@ const Establishment = () => {
                         className="mt-7"
                         onClick={() => handleRemoveQuestion(index)}
                       >
-                        <x className="h-4 w-4" />
+                        <X className="h-4 w-4" />
                       </Button>
                     )}
                   </div>
