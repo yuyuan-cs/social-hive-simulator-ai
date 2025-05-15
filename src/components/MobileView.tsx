@@ -11,7 +11,7 @@ interface MobileViewProps {
 }
 
 const MobileView = ({ activeModule, setActiveModule }: MobileViewProps) => {
-  // 简化的移动端内容
+  // Simplified mobile content
   const renderMobileContent = () => {
     switch (activeModule) {
       case 'home':
@@ -215,50 +215,75 @@ const MobileView = ({ activeModule, setActiveModule }: MobileViewProps) => {
 
   return (
     <div className="flex flex-col h-full">
-      {/* Mobile Screen Container */}
-      <div className="flex-1 mx-auto w-full max-w-[375px] bg-white rounded-lg border overflow-hidden flex flex-col">
-        {/* Mobile Content */}
-        <div className="flex-1 p-4 overflow-y-auto">
-          {renderMobileContent()}
+      {/* Phone Frame */}
+      <div className="relative h-full w-full mx-auto flex flex-col">
+        {/* Phone Top Bar */}
+        <div className="bg-black w-full h-7 rounded-t-2xl flex items-center justify-center">
+          <div className="bg-gray-800 w-24 h-5 rounded-full flex items-center justify-center">
+            <div className="bg-gray-900 w-5 h-5 rounded-full"></div>
+          </div>
         </div>
         
-        {/* Mobile Navigation Bar */}
-        <div className="border-t grid grid-cols-5 bg-white">
-          <button 
-            className={`p-2 flex flex-col items-center justify-center text-xs ${activeModule === 'home' ? 'text-guizhou-teal' : 'text-gray-500'}`}
-            onClick={() => setActiveModule('home')}
-          >
-            <Home size={18} />
-            <span>主页</span>
-          </button>
-          <button 
-            className={`p-2 flex flex-col items-center justify-center text-xs ${activeModule === 'establishment' ? 'text-guizhou-teal' : 'text-gray-500'}`}
-            onClick={() => setActiveModule('establishment')}
-          >
-            <Users size={18} />
-            <span>建立</span>
-          </button>
-          <button 
-            className={`p-2 flex flex-col items-center justify-center text-xs ${activeModule === 'operation' ? 'text-guizhou-teal' : 'text-gray-500'}`}
-            onClick={() => setActiveModule('operation')}
-          >
-            <MessageCircle size={18} />
-            <span>经营</span>
-          </button>
-          <button 
-            className={`p-2 flex flex-col items-center justify-center text-xs ${activeModule === 'monetization' ? 'text-guizhou-teal' : 'text-gray-500'}`}
-            onClick={() => setActiveModule('monetization')}
-          >
-            <BarChartBig size={18} />
-            <span>变现</span>
-          </button>
-          <button 
-            className={`p-2 flex flex-col items-center justify-center text-xs ${activeModule === 'management' || activeModule === 'expansion' ? 'text-guizhou-teal' : 'text-gray-500'}`}
-            onClick={() => setActiveModule(activeModule === 'management' ? 'expansion' : 'management')}
-          >
-            {activeModule === 'management' || activeModule === 'expansion' ? <Folder size={18} /> : <Settings size={18} />}
-            <span>{activeModule === 'management' ? '拓展' : '管理'}</span>
-          </button>
+        {/* Phone Screen */}
+        <div className="flex-1 border-x-8 border-black bg-white overflow-hidden flex flex-col">
+          {/* Phone Status Bar */}
+          <div className="h-6 bg-black text-white flex items-center justify-between px-4">
+            <div className="text-[10px]">10:25</div>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-white/80"></div>
+              <div className="w-3 h-3 rounded-full bg-white/80"></div>
+              <div className="w-3 h-3 rounded-full bg-white/80"></div>
+            </div>
+          </div>
+          
+          {/* Mobile Content */}
+          <div className="flex-1 p-4 overflow-y-auto">
+            {renderMobileContent()}
+          </div>
+          
+          {/* Mobile Navigation Bar */}
+          <div className="border-t grid grid-cols-5 bg-white">
+            <button 
+              className={`p-2 flex flex-col items-center justify-center text-xs ${activeModule === 'home' ? 'text-guizhou-teal' : 'text-gray-500'}`}
+              onClick={() => setActiveModule('home')}
+            >
+              <Home size={18} />
+              <span>主页</span>
+            </button>
+            <button 
+              className={`p-2 flex flex-col items-center justify-center text-xs ${activeModule === 'establishment' ? 'text-guizhou-teal' : 'text-gray-500'}`}
+              onClick={() => setActiveModule('establishment')}
+            >
+              <Users size={18} />
+              <span>建立</span>
+            </button>
+            <button 
+              className={`p-2 flex flex-col items-center justify-center text-xs ${activeModule === 'operation' ? 'text-guizhou-teal' : 'text-gray-500'}`}
+              onClick={() => setActiveModule('operation')}
+            >
+              <MessageCircle size={18} />
+              <span>经营</span>
+            </button>
+            <button 
+              className={`p-2 flex flex-col items-center justify-center text-xs ${activeModule === 'monetization' ? 'text-guizhou-teal' : 'text-gray-500'}`}
+              onClick={() => setActiveModule('monetization')}
+            >
+              <BarChartBig size={18} />
+              <span>变现</span>
+            </button>
+            <button 
+              className={`p-2 flex flex-col items-center justify-center text-xs ${activeModule === 'management' || activeModule === 'expansion' ? 'text-guizhou-teal' : 'text-gray-500'}`}
+              onClick={() => setActiveModule(activeModule === 'management' ? 'expansion' : 'management')}
+            >
+              {activeModule === 'management' || activeModule === 'expansion' ? <Folder size={18} /> : <Settings size={18} />}
+              <span>{activeModule === 'management' ? '拓展' : '管理'}</span>
+            </button>
+          </div>
+        </div>
+        
+        {/* Phone Bottom Bar */}
+        <div className="bg-black w-full h-10 rounded-b-2xl flex items-center justify-center">
+          <div className="bg-gray-800 w-1/3 h-1.5 rounded-full"></div>
         </div>
       </div>
     </div>

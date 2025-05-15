@@ -13,15 +13,15 @@ import MobileView from './MobileView';
 import ExperimentGuide from './ExperimentGuide';
 import ExperimentReport from './ExperimentReport';
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const Dashboard = () => {
   const [activeModule, setActiveModule] = useState<string>('home');
@@ -74,29 +74,16 @@ const Dashboard = () => {
               <FileText className="h-4 w-4" />
               查看报告
             </Button>
-            <Drawer>
-              <DrawerTrigger asChild>
+            <Sheet>
+              <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
                   <Phone className="h-4 w-4" />
                 </Button>
-              </DrawerTrigger>
-              <DrawerContent className="h-[85vh]">
-                <DrawerHeader className="text-center">
-                  <DrawerTitle>移动端预览</DrawerTitle>
-                  <DrawerDescription>
-                    查看在手机上的显示效果
-                  </DrawerDescription>
-                </DrawerHeader>
-                <div className="flex-1 px-4 overflow-y-auto">
-                  <MobileView activeModule={activeModule} setActiveModule={setActiveModule} />
-                </div>
-                <DrawerFooter>
-                  <DrawerClose asChild>
-                    <Button variant="outline">关闭</Button>
-                  </DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[350px] p-0">
+                <MobileView activeModule={activeModule} setActiveModule={setActiveModule} />
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>
