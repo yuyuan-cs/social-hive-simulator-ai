@@ -8,6 +8,18 @@ import Operation from './modules/Operation';
 import Monetization from './modules/Monetization';
 import Management from './modules/Management';
 import Expansion from './modules/Expansion';
+import { Phone } from 'lucide-react';
+import MobileView from './MobileView';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 const Dashboard = () => {
   const [activeModule, setActiveModule] = useState<string>('home');
@@ -46,6 +58,29 @@ const Dashboard = () => {
             <Button variant="outline" size="sm">
               查看报告
             </Button>
+            <Drawer>
+              <DrawerTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Phone className="h-4 w-4" />
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent className="h-[85vh]">
+                <DrawerHeader className="text-center">
+                  <DrawerTitle>移动端预览</DrawerTitle>
+                  <DrawerDescription>
+                    查看在手机上的显示效果
+                  </DrawerDescription>
+                </DrawerHeader>
+                <div className="flex-1 px-4 overflow-y-auto">
+                  <MobileView activeModule={activeModule} setActiveModule={setActiveModule} />
+                </div>
+                <DrawerFooter>
+                  <DrawerClose asChild>
+                    <Button variant="outline">关闭</Button>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
           </div>
         </div>
       </header>
