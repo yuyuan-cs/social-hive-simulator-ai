@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Users, MessageCircle, BarChartBig } from "lucide-react";
 import AiAssistantMessage from '../AiAssistantMessage';
 
 interface HomeProps {
@@ -17,7 +18,7 @@ const Home = ({ onStartEstablishment }: HomeProps) => {
       </div>
       
       <AiAssistantMessage 
-        message="欢迎来到社群运营虚拟仿真实验平台！在这里，您将系统地学习社群运营的全生命周期，包括：社群建立、社群经营、社群变现、社群管理和社群拓展。请点击"开始实验"，从社群建立阶段开始您的学习之旅。"
+        message="欢迎来到社群运营虚拟仿真实验平台！在这里，您将系统地学习社群运营的全生命周期，包括：社群建立、社群经营、社群变现、社群管理和社群拓展。请点击'开始实验'，从社群建立阶段开始您的学习之旅。"
       />
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
