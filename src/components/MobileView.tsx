@@ -1,9 +1,25 @@
-
-import React from 'react';
-import { Home, Users, MessageCircle, BarChartBig, Settings, Folder, BookOpen, FileText } from "lucide-react";
+import React, { useState } from 'react';
+import { Home, Users, MessageCircle, BarChartBig, Settings, Folder, BookOpen, FileText, Video, Image, Heart, Share } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "@/components/ui/use-toast";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+import { Avatar } from "@/components/ui/avatar";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 interface MobileViewProps {
   activeModule: string;
@@ -11,205 +27,558 @@ interface MobileViewProps {
 }
 
 const MobileView = ({ activeModule, setActiveModule }: MobileViewProps) => {
-  // Simplified mobile content
-  const renderMobileContent = () => {
-    switch (activeModule) {
-      case 'home':
-        return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold text-center">社群运营虚拟仿真实验平台</h2>
-            <p className="text-sm text-center text-muted-foreground">通过实践学习现代社群运营的全生命周期</p>
-            
-            <div className="bg-guizhou-green/10 p-4 rounded-lg">
-              <p className="text-sm">欢迎来到社群运营虚拟仿真实验平台！在这里，您将系统地学习社群运营的全生命周期。</p>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-3 my-4">
-              <Card>
-                <CardContent className="p-3 flex flex-col items-center text-center">
-                  <div className="bg-guizhou-green/50 p-2 rounded-full mb-2">
-                    <Users className="text-guizhou-teal h-4 w-4" />
-                  </div>
-                  <p className="text-xs font-medium">技能学习</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-3 flex flex-col items-center text-center">
-                  <div className="bg-guizhou-blue/50 p-2 rounded-full mb-2">
-                    <MessageCircle className="text-guizhou-teal h-4 w-4" />
-                  </div>
-                  <p className="text-xs font-medium">实训案例</p>
-                </CardContent>
-              </Card>
-            </div>
-            
-            <div className="space-y-3">
-              <Button 
-                className="w-full bg-guizhou-teal hover:bg-guizhou-teal/90" 
-                onClick={() => setActiveModule('establishment')}
-              >
-                开始实验
-              </Button>
-              
-              <div className="flex gap-2">
-                <Button 
-                  variant="outline" 
-                  className="flex-1 text-xs h-8"
-                  onClick={() => {
-                    toast({
-                      title: "实验说明",
-                      description: "实验说明功能在移动端开发中",
-                    });
-                  }}
-                >
-                  <BookOpen className="h-3 w-3 mr-1" />
-                  实验说明
-                </Button>
-                <Button 
-                  variant="outline"
-                  className="flex-1 text-xs h-8"
-                  onClick={() => {
-                    toast({
-                      title: "实验报告",
-                      description: "实验报告功能在移动端开发中",
-                    });
-                  }}
-                >
-                  <FileText className="h-3 w-3 mr-1" />
-                  查看报告
-                </Button>
+  const [activeSocialTab, setActiveSocialTab] = useState<string>("wechat-group");
+  
+  // Render WeChat Group content
+  const renderWeChatGroup = () => {
+    return (
+      <div className="space-y-4">
+        <div className="bg-[#EDEDED] p-3 rounded-md mb-2">
+          <div className="flex items-center justify-between mb-2">
+            <div className="font-bold">运营学习交流群</div>
+            <div className="text-xs text-gray-500">128人</div>
+          </div>
+          <div className="text-xs text-gray-500">群公告：欢迎加入社群运营学习交流群，请遵守群规则，禁止发广告</div>
+        </div>
+        
+        <div className="space-y-4">
+          {/* Message 1 */}
+          <div className="flex gap-2">
+            <Avatar className="h-8 w-8">
+              <img src="https://source.unsplash.com/random/100x100/?portrait,woman" alt="User" />
+            </Avatar>
+            <div className="flex-1">
+              <div className="text-xs font-medium">运营小助手</div>
+              <div className="bg-white p-2 rounded-md text-sm mt-1">
+                大家好，今天我们将讨论社群内容设计的核心要素，请大家准备好笔记。
               </div>
             </div>
           </div>
-        );
-      case 'establishment':
-        return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">社群建立</h2>
-            <p className="text-sm text-muted-foreground">学习如何正确定位和建立社群</p>
-            <div className="bg-guizhou-green/10 p-4 rounded-lg">
-              <p className="text-sm">社群建立是社群运营的第一步，包括定位诊断、规则设计等步骤。</p>
-            </div>
-            
-            <Card className="border-guizhou-teal/30">
-              <CardContent className="p-4 space-y-3">
-                <h3 className="font-medium text-sm">当前任务</h3>
-                <ol className="list-decimal list-inside text-xs space-y-1">
-                  <li>确定社群定位</li>
-                  <li>设计社群规则</li>
-                  <li>创建引导性问题</li>
-                </ol>
-                <Button 
-                  className="w-full text-xs h-8 bg-guizhou-teal hover:bg-guizhou-teal/90"
-                  onClick={() => {
-                    toast({
-                      title: "任务进行中",
-                      description: "社群建立任务正在进行中",
-                    });
-                  }}
-                >
-                  继续任务
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        );
-      case 'operation':
-        return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">社群经营</h2>
-            <p className="text-sm text-muted-foreground">了解如何维护和发展社群</p>
-            
-            <div className="grid grid-cols-1 gap-3">
-              <Card>
-                <CardContent className="p-3">
-                  <h3 className="text-sm font-medium">引流拉新</h3>
-                  <p className="text-xs text-muted-foreground">学习多种社群引流方式</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-3">
-                  <h3 className="text-sm font-medium">促进活跃与留存</h3>
-                  <p className="text-xs text-muted-foreground">掌握用户分层运营方法</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-3">
-                  <h3 className="text-sm font-medium">日常运营</h3>
-                  <p className="text-xs text-muted-foreground">制定内容日历，管理社群互动</p>
-                </CardContent>
-              </Card>
+          
+          {/* Message 2 */}
+          <div className="flex gap-2">
+            <Avatar className="h-8 w-8">
+              <img src="https://source.unsplash.com/random/100x100/?portrait,man" alt="User" />
+            </Avatar>
+            <div className="flex-1">
+              <div className="text-xs font-medium">李同学</div>
+              <div className="bg-white p-2 rounded-md text-sm mt-1">
+                请问大家有没有好的社群活动策划案例可以分享？
+              </div>
             </div>
           </div>
-        );
-      case 'monetization':
-        return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">社群变现</h2>
-            <p className="text-sm text-muted-foreground">探索社群商业价值实现</p>
-            
-            <div className="grid grid-cols-1 gap-3">
-              <Card>
-                <CardContent className="p-3">
-                  <h3 className="text-sm font-medium">变现模式测试</h3>
-                  <p className="text-xs text-muted-foreground">测试不同变现模式的效果</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-3">
-                  <h3 className="text-sm font-medium">定价策略</h3>
-                  <p className="text-xs text-muted-foreground">为产品或服务制定合理价格</p>
-                </CardContent>
-              </Card>
+          
+          {/* Message 3 */}
+          <div className="flex gap-2">
+            <Avatar className="h-8 w-8">
+              <img src="https://source.unsplash.com/random/100x100/?portrait,girl" alt="User" />
+            </Avatar>
+            <div className="flex-1">
+              <div className="text-xs font-medium">王老师</div>
+              <div className="bg-white p-2 rounded-md text-sm mt-1">
+                我们可以看看这篇文章，关于社群活动设计的框架思路
+                <div className="mt-2 border border-gray-200 p-2 rounded-md bg-gray-50">
+                  <div className="text-xs font-medium text-blue-500">《高质量社群活动的10个底层逻辑》</div>
+                  <div className="text-xs text-gray-500 mt-1">mp.weixin.qq.com</div>
+                </div>
+              </div>
             </div>
           </div>
-        );
-      case 'management':
-        return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">社群管理</h2>
-            <p className="text-sm text-muted-foreground">学习社群规范化管理方法</p>
-            
-            <div className="grid grid-cols-1 gap-3">
-              <Card>
-                <CardContent className="p-3">
-                  <h3 className="text-sm font-medium">数据驱动决策</h3>
-                  <p className="text-xs text-muted-foreground">通过核心指标分析社群状况</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-3">
-                  <h3 className="text-sm font-medium">风险管理</h3>
-                  <p className="text-xs text-muted-foreground">学习舆情危机处理和合规风险防范</p>
-                </CardContent>
-              </Card>
+          
+          {/* Message 4 */}
+          <div className="flex justify-end gap-2">
+            <div className="flex-1 text-right">
+              <div className="text-xs font-medium text-right">我</div>
+              <div className="bg-green-500 text-white p-2 rounded-md text-sm mt-1 inline-block">
+                谢谢分享，我马上看看
+              </div>
+            </div>
+            <Avatar className="h-8 w-8">
+              <img src="https://source.unsplash.com/random/100x100/?portrait,asian" alt="User" />
+            </Avatar>
+          </div>
+        </div>
+        
+        <div className="fixed bottom-16 left-0 right-0 bg-[#F5F5F7] p-2 border-t flex items-center gap-2 px-4">
+          <input 
+            type="text" 
+            placeholder="输入消息..." 
+            className="flex-1 bg-white rounded-full text-sm py-1 px-3 border"
+          />
+          <Button size="sm" variant="ghost" className="rounded-full p-2 h-8 w-8">
+            <Image className="h-5 w-5" />
+          </Button>
+        </div>
+      </div>
+    );
+  };
+  
+  // Render WeChat Moments content
+  const renderWeChatMoments = () => {
+    return (
+      <div className="space-y-6">
+        {/* Moments Header */}
+        <div className="relative h-32 bg-[#333] mb-12">
+          <img 
+            src="https://source.unsplash.com/random/800x200/?landscape,mountain" 
+            alt="Cover"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute -bottom-10 right-4 flex items-end gap-2">
+            <div className="text-white text-right text-sm">社群小助手</div>
+            <Avatar className="h-16 w-16 border-4 border-white">
+              <img src="https://source.unsplash.com/random/100x100/?portrait,asian" alt="User" />
+            </Avatar>
+          </div>
+        </div>
+        
+        {/* Post 1 */}
+        <div className="border-b pb-4">
+          <div className="flex gap-2">
+            <Avatar className="h-10 w-10">
+              <img src="https://source.unsplash.com/random/100x100/?portrait,woman" alt="User" />
+            </Avatar>
+            <div className="flex-1">
+              <div className="font-medium text-sm">运营专家张思</div>
+              <div className="text-sm mt-1">今天给大家分享一个案例，如何通过社群裂变实现3天涨粉1000+</div>
+              <div className="mt-2 grid grid-cols-3 gap-1">
+                <img 
+                  src="https://source.unsplash.com/random/300x300/?marketing" 
+                  alt="Post"
+                  className="rounded-md aspect-square object-cover"
+                />
+                <img 
+                  src="https://source.unsplash.com/random/300x300/?chart" 
+                  alt="Post"
+                  className="rounded-md aspect-square object-cover"
+                />
+                <img 
+                  src="https://source.unsplash.com/random/300x300/?graph" 
+                  alt="Post"
+                  className="rounded-md aspect-square object-cover"
+                />
+              </div>
+              <div className="mt-2 flex justify-between items-center">
+                <div className="text-xs text-gray-500">2小时前</div>
+                <div className="flex items-center gap-4">
+                  <button className="flex items-center gap-1 text-gray-500">
+                    <MessageCircle className="h-4 w-4" />
+                    <span className="text-xs">12</span>
+                  </button>
+                  <button className="flex items-center gap-1 text-gray-500">
+                    <Heart className="h-4 w-4" />
+                    <span className="text-xs">45</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        );
-      case 'expansion':
-        return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">社群拓展</h2>
-            <p className="text-sm text-muted-foreground">了解社群扩展与持续发展</p>
-            
-            <div className="grid grid-cols-1 gap-3">
-              <Card>
-                <CardContent className="p-3">
-                  <h3 className="text-sm font-medium">线下活动策划</h3>
-                  <p className="text-xs text-muted-foreground">学习如何策划线下活动</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-3">
-                  <h3 className="text-sm font-medium">模式复制与迭代</h3>
-                  <p className="text-xs text-muted-foreground">将成功模式复制到新领域</p>
-                </CardContent>
-              </Card>
+        </div>
+        
+        {/* Post 2 */}
+        <div className="border-b pb-4">
+          <div className="flex gap-2">
+            <Avatar className="h-10 w-10">
+              <img src="https://source.unsplash.com/random/100x100/?portrait,man" alt="User" />
+            </Avatar>
+            <div className="flex-1">
+              <div className="font-medium text-sm">陈老师</div>
+              <div className="text-sm mt-1">分享一张今天社群运营研讨会的合照，感谢大家的参与！</div>
+              <div className="mt-2">
+                <img 
+                  src="https://source.unsplash.com/random/600x400/?conference" 
+                  alt="Post"
+                  className="rounded-md w-full object-cover"
+                />
+              </div>
+              <div className="mt-2 flex justify-between items-center">
+                <div className="text-xs text-gray-500">昨天</div>
+                <div className="flex items-center gap-4">
+                  <button className="flex items-center gap-1 text-gray-500">
+                    <MessageCircle className="h-4 w-4" />
+                    <span className="text-xs">8</span>
+                  </button>
+                  <button className="flex items-center gap-1 text-gray-500">
+                    <Heart className="h-4 w-4" />
+                    <span className="text-xs">36</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        );
+        </div>
+      </div>
+    );
+  };
+  
+  // Render Xiaohongshu content
+  const renderXiaohongshu = () => {
+    return (
+      <div>
+        <div className="p-3 bg-white sticky top-0 z-10 border-b flex justify-between">
+          <div className="font-medium">发现</div>
+          <div className="text-sm text-gray-500">社群运营</div>
+        </div>
+        
+        <div className="grid grid-cols-2 gap-3 p-2">
+          {/* RED Post 1 */}
+          <div className="bg-white rounded-lg overflow-hidden shadow-sm">
+            <img 
+              src="https://source.unsplash.com/random/400x400/?design,community" 
+              alt="Post"
+              className="w-full aspect-square object-cover"
+            />
+            <div className="p-2">
+              <div className="text-sm font-medium line-clamp-2">3个月从0到1万粉，我的社群运营心得分享</div>
+              <div className="flex items-center gap-1 mt-2">
+                <Avatar className="h-5 w-5">
+                  <img src="https://source.unsplash.com/random/100x100/?portrait,girl" alt="User" />
+                </Avatar>
+                <div className="text-xs">社群运营小能手</div>
+                <Heart className="h-3 w-3 text-gray-500 ml-auto" />
+                <div className="text-xs text-gray-500">217</div>
+              </div>
+            </div>
+          </div>
+          
+          {/* RED Post 2 */}
+          <div className="bg-white rounded-lg overflow-hidden shadow-sm">
+            <img 
+              src="https://source.unsplash.com/random/400x400/?marketing,social" 
+              alt="Post"
+              className="w-full aspect-square object-cover"
+            />
+            <div className="p-2">
+              <div className="text-sm font-medium line-clamp-2">社群日历管理模板分享，帮你高效运营</div>
+              <div className="flex items-center gap-1 mt-2">
+                <Avatar className="h-5 w-5">
+                  <img src="https://source.unsplash.com/random/100x100/?portrait,woman" alt="User" />
+                </Avatar>
+                <div className="text-xs">效率研究所</div>
+                <Heart className="h-3 w-3 text-gray-500 ml-auto" />
+                <div className="text-xs text-gray-500">184</div>
+              </div>
+            </div>
+          </div>
+          
+          {/* RED Post 3 */}
+          <div className="bg-white rounded-lg overflow-hidden shadow-sm">
+            <img 
+              src="https://source.unsplash.com/random/400x400/?communication" 
+              alt="Post"
+              className="w-full aspect-square object-cover"
+            />
+            <div className="p-2">
+              <div className="text-sm font-medium line-clamp-2">社群破冰必备！10个高互动小游戏</div>
+              <div className="flex items-center gap-1 mt-2">
+                <Avatar className="h-5 w-5">
+                  <img src="https://source.unsplash.com/random/100x100/?portrait,boy" alt="User" />
+                </Avatar>
+                <div className="text-xs">玩转社群</div>
+                <Heart className="h-3 w-3 text-gray-500 ml-auto" />
+                <div className="text-xs text-gray-500">395</div>
+              </div>
+            </div>
+          </div>
+          
+          {/* RED Post 4 */}
+          <div className="bg-white rounded-lg overflow-hidden shadow-sm">
+            <img 
+              src="https://source.unsplash.com/random/400x400/?business,meeting" 
+              alt="Post"
+              className="w-full aspect-square object-cover"
+            />
+            <div className="p-2">
+              <div className="text-sm font-medium line-clamp-2">一个月变现10万+的社群是怎么做到的</div>
+              <div className="flex items-center gap-1 mt-2">
+                <Avatar className="h-5 w-5">
+                  <img src="https://source.unsplash.com/random/100x100/?portrait,man" alt="User" />
+                </Avatar>
+                <div className="text-xs">电商创业者</div>
+                <Heart className="h-3 w-3 text-gray-500 ml-auto" />
+                <div className="text-xs text-gray-500">682</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+  
+  // Render Bilibili content
+  const renderBilibili = () => {
+    return (
+      <div className="bg-[#F4F4F4]">
+        <div className="bg-[#FB7299] text-white p-3 sticky top-0 z-10 flex justify-between items-center">
+          <div className="font-medium">社群运营学习</div>
+          <div>
+            <Button variant="ghost" size="sm" className="text-white">
+              <Share className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+        
+        <div className="space-y-3 p-2">
+          {/* Bilibili Video 1 */}
+          <Card>
+            <CardContent className="p-3 space-y-2">
+              <div className="relative">
+                <img 
+                  src="https://source.unsplash.com/random/800x450/?presentation" 
+                  alt="Video Thumbnail"
+                  className="w-full aspect-video object-cover rounded"
+                />
+                <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-1 rounded">
+                  12:34
+                </div>
+                <div className="absolute top-2 left-2 bg-[#FB7299] text-white text-xs px-2 py-0.5 rounded-sm">
+                  学习
+                </div>
+              </div>
+              <div className="text-sm font-medium">【干货】社群运营实战技巧合集，从0到1搭建高活跃度社区</div>
+              <div className="flex justify-between text-xs text-gray-500">
+                <div className="flex items-center gap-1">
+                  <Avatar className="h-4 w-4">
+                    <img src="https://source.unsplash.com/random/100x100/?portrait" alt="User" />
+                  </Avatar>
+                  <span>运营学院</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="flex items-center gap-0.5">
+                    <Video className="h-3 w-3" />
+                    10.5万
+                  </span>
+                  <span className="flex items-center gap-0.5">
+                    <MessageCircle className="h-3 w-3" />
+                    2835
+                  </span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          {/* Bilibili Video 2 */}
+          <Card>
+            <CardContent className="p-3 space-y-2">
+              <div className="relative">
+                <img 
+                  src="https://source.unsplash.com/random/800x450/?webinar" 
+                  alt="Video Thumbnail"
+                  className="w-full aspect-video object-cover rounded"
+                />
+                <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-1 rounded">
+                  23:47
+                </div>
+                <div className="absolute top-2 left-2 bg-[#FB7299] text-white text-xs px-2 py-0.5 rounded-sm">
+                  经验
+                </div>
+              </div>
+              <div className="text-sm font-medium">6个月涨粉10万，我是如何设计高质量社群内容的</div>
+              <div className="flex justify-between text-xs text-gray-500">
+                <div className="flex items-center gap-1">
+                  <Avatar className="h-4 w-4">
+                    <img src="https://source.unsplash.com/random/100x100/?portrait,woman" alt="User" />
+                  </Avatar>
+                  <span>新媒体小王</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="flex items-center gap-0.5">
+                    <Video className="h-3 w-3" />
+                    7.8万
+                  </span>
+                  <span className="flex items-center gap-0.5">
+                    <MessageCircle className="h-3 w-3" />
+                    1642
+                  </span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          {/* Bilibili Video 3 */}
+          <Card>
+            <CardContent className="p-3 space-y-2">
+              <div className="relative">
+                <img 
+                  src="https://source.unsplash.com/random/800x450/?seminar" 
+                  alt="Video Thumbnail"
+                  className="w-full aspect-video object-cover rounded"
+                />
+                <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-1 rounded">
+                  35:22
+                </div>
+                <div className="absolute top-2 left-2 bg-[#FB7299] text-white text-xs px-2 py-0.5 rounded-sm">
+                  实战
+                </div>
+              </div>
+              <div className="text-sm font-medium">直播回放：社群运营月度复盘与数据分析方法</div>
+              <div className="flex justify-between text-xs text-gray-500">
+                <div className="flex items-center gap-1">
+                  <Avatar className="h-4 w-4">
+                    <img src="https://source.unsplash.com/random/100x100/?portrait,man" alt="User" />
+                  </Avatar>
+                  <span>数据分析师张三</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="flex items-center gap-0.5">
+                    <Video className="h-3 w-3" />
+                    5.2万
+                  </span>
+                  <span className="flex items-center gap-0.5">
+                    <MessageCircle className="h-3 w-3" />
+                    968
+                  </span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  };
+  
+  // Render Douyin content
+  const renderDouyin = () => {
+    return (
+      <div className="bg-black h-full text-white relative">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-full aspect-[9/16] relative">
+            <img 
+              src="https://source.unsplash.com/random/1080x1920/?presentation,people" 
+              alt="Video"
+              className="w-full h-full object-cover"
+            />
+            
+            {/* Video Controls Overlay */}
+            <div className="absolute inset-0 flex flex-col justify-between p-4">
+              {/* Top Bar */}
+              <div className="flex justify-between items-center">
+                <div className="text-sm">关注</div>
+                <div className="text-sm">搜索</div>
+              </div>
+              
+              {/* Right Side Actions */}
+              <div className="absolute right-3 bottom-20 flex flex-col items-center gap-5">
+                <div className="flex flex-col items-center">
+                  <Avatar className="h-10 w-10 border-2 border-white">
+                    <img src="https://source.unsplash.com/random/100x100/?portrait,girl" alt="Creator" />
+                  </Avatar>
+                  <button className="bg-[#FE2C55] rounded-full h-5 w-5 flex items-center justify-center mt-2">
+                    <span className="text-xs">+</span>
+                  </button>
+                </div>
+                
+                <div className="flex flex-col items-center">
+                  <button className="flex flex-col items-center">
+                    <Heart className="h-8 w-8" />
+                    <span className="text-xs mt-1">45.2w</span>
+                  </button>
+                </div>
+                
+                <div className="flex flex-col items-center">
+                  <button className="flex flex-col items-center">
+                    <MessageCircle className="h-8 w-8" />
+                    <span className="text-xs mt-1">1.3w</span>
+                  </button>
+                </div>
+                
+                <div className="flex flex-col items-center">
+                  <button className="flex flex-col items-center">
+                    <Share className="h-8 w-8" />
+                    <span className="text-xs mt-1">8.5w</span>
+                  </button>
+                </div>
+              </div>
+              
+              {/* Bottom Content */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="font-medium">@社群运营指南</span>
+                </div>
+                <div className="text-sm">
+                  如何打造高复购率的私域流量池？3个方法教你提升社群活跃度 #社群运营 #私域流量
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="bg-black bg-opacity-50 px-3 py-1 rounded-full flex items-center gap-1">
+                    <Image className="h-3 w-3" />
+                    <span className="text-xs">原声：社群运营指南</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // Render different social media content based on the active tab
+  const renderSocialContent = () => {
+    switch (activeSocialTab) {
+      case 'wechat-group':
+        return renderWeChatGroup();
+      case 'wechat-moments':
+        return renderWeChatMoments();
+      case 'xiaohongshu':
+        return renderXiaohongshu();
+      case 'bilibili':
+        return renderBilibili();
+      case 'douyin':
+        return renderDouyin();
       default:
-        return <div>内容加载中...</div>;
+        return renderWeChatGroup();
+    }
+  };
+
+  // Render main content based on active module
+  const renderContentBasedOnModule = () => {
+    if (activeModule === 'home' || activeModule === 'establishment') {
+      return (
+        <ScrollArea className="h-[calc(100%-120px)]">
+          <div className="px-4 py-2">
+            <Tabs value={activeSocialTab} onValueChange={setActiveSocialTab} className="w-full">
+              <TabsList className="w-full grid grid-cols-5 h-auto p-0 bg-transparent">
+                <TabsTrigger 
+                  value="wechat-group" 
+                  className="text-[10px] py-1 data-[state=active]:bg-guizhou-teal/10"
+                >
+                  微信群
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="wechat-moments" 
+                  className="text-[10px] py-1 data-[state=active]:bg-guizhou-teal/10"
+                >
+                  朋友圈
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="xiaohongshu" 
+                  className="text-[10px] py-1 data-[state=active]:bg-guizhou-teal/10"
+                >
+                  小红书
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="bilibili" 
+                  className="text-[10px] py-1 data-[state=active]:bg-guizhou-teal/10"
+                >
+                  B站
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="douyin" 
+                  className="text-[10px] py-1 data-[state=active]:bg-guizhou-teal/10"
+                >
+                  抖音
+                </TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value={activeSocialTab} className="mt-2">
+                {renderSocialContent()}
+              </TabsContent>
+            </Tabs>
+          </div>
+        </ScrollArea>
+      );
+    } else {
+      return <div>内容加载中...</div>;
     }
   };
 
@@ -237,9 +606,7 @@ const MobileView = ({ activeModule, setActiveModule }: MobileViewProps) => {
           </div>
           
           {/* Mobile Content */}
-          <div className="flex-1 p-4 overflow-y-auto">
-            {renderMobileContent()}
-          </div>
+          {renderContentBasedOnModule()}
           
           {/* Mobile Navigation Bar */}
           <div className="border-t grid grid-cols-5 bg-white">
